@@ -1,0 +1,152 @@
+<div class="container">
+  <div class="section">
+    <div class="wrapper">
+      <form [formGroup]="formInfo" (ngSubmit) = onSubmit()>
+        <div class="grid">
+          <div class="grid__block">
+            <label>
+              <div class="field-label">
+                  Name*
+              </div>
+
+              <div class="field-value"
+                *ngIf="!editMode">
+                  {{formInfo.value.name}}
+              </div>
+
+              <input type="text" class="field" id="name"
+              *ngIf='editMode'
+              formControlName='name'
+              [class.invalid--]='formInfo.controls.name.errors?.required'>
+
+              <div class="field-error" id="nameRequired"
+              [class.active--]='formInfo.controls.name.errors?.required'>
+                  Name is required.
+              </div>
+            </label>
+          </div>
+
+          <div class="grid__block">
+            <label>
+              <div class="field-label">
+                  E-mail Address*
+              </div>
+
+              <div class="field-value"
+              *ngIf='!editMode'>
+                  {{formInfo.value.email}}
+              </div>
+
+              <input type="email" class="field" id="email"
+              *ngIf='editMode'
+              formControlName='email'
+              [class.invalid--]='formInfo.controls.email.errors?.required || formInfo.controls.email.errors?.email'>
+
+              <div class="field-error" id="emailRequired"
+              [class.active--]='formInfo.controls.email.errors?.required'>
+                  E-mail Address is required.
+              </div>
+
+              <div class="field-error" id="emailInvalid"
+              [class.active--]='formInfo.controls.email.errors?.email && !formInfo.controls.email.errors?.required'>
+                  E-mail Address is invalid.
+              </div>
+            </label>
+          </div>
+
+          <div class="grid__block">
+            <label>
+              <div class="field-label">
+                  Contact Number*
+              </div>
+
+              <div class="field-value"
+              *ngIf='!editMode'>
+                  {{formInfo.value.contact}}
+              </div>
+
+              <input type="tel" class="field" id="contact"
+              *ngIf='editMode'
+              formControlName='contact'
+              [class.invalid--]='formInfo.controls.contact.errors?.required || formInfo.controls.contact.errors?.contact'>
+
+              <div class="field-error" id="contactRequired"
+              [class.active--]='formInfo.controls.contact.errors?.required'>
+                  Contact Number is required.
+              </div>
+
+              <div class="field-error" id="contactInvalid"
+              [class.active--]='formInfo.controls.contact.errors?.contact && !formInfo.controls.contact.errors?.required'>
+                  Contact Number should consist of 8 to 12 digits only.
+              </div>
+            </label>
+          </div>
+
+          <div class="grid__block">
+            <label>
+              <div class="field-label">
+                  Gender*
+              </div>
+
+              <div class="field-value"
+              *ngIf='!editMode'>
+                {{formInfo.value.gender}}
+              </div>
+
+              <select class="field" id="gender"
+              [class.invalid--]='formInfo.controls.gender.errors?.gender'
+              *ngIf='editMode'
+              formControlName='gender'>
+                  <option value="">{{genderListSelect}}</option>
+                  <option *ngFor="let genderItem of genderList"
+                  [value]='genderItem'>
+                      {{genderItem}}
+                  </option>
+
+              </select>
+
+              <div class="field-error" id="genderRequired"
+              [class.active--]='formInfo.controls.gender.errors?.gender'>
+                  Gender is required.
+              </div>
+            </label>
+          </div>
+
+          <div class="grid__block full--">
+            <label>
+              <div class="field-label">
+                  Notes*
+              </div>
+
+              <div class="field-value"
+              *ngIf='!editMode'>
+                  {{formInfo.value.notes}}
+              </div>
+
+              <textarea name="notes" class="field" id="notes"
+              *ngIf='editMode'
+              [class.invalid--]='formInfo.controls.notes.errors?.required'
+              formControlName='notes'
+              >
+              </textarea>
+
+              <div class="field-error" id="notesRequired"
+              [class.active--]='formInfo.controls.notes.errors?.required'>
+                  Notes is required.
+              </div>
+            </label>
+          </div>
+
+          <div class="grid__block full-- text-center">
+            <button class="button"
+            [disabled]='formInfo.invalid'
+            [class.secondary--] = '!editMode' >
+              {{editMode? 'Save':'Edit'}}
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
